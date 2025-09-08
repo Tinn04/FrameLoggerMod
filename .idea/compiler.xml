@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="framelogger" options="-AoutRefMapFile=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\classes\java\client\client-framelogger-refmap.json -AdefaultObfuscationEnv=named:intermediary -Aquiet=true -AoutMapFileNamedIntermediary=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\loom-cache\mixin-map-net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2.client.tiny -AinMapFileNamedIntermediary=C:\Users\hotin\.gradle\caches\fabric-loom\1.21.1\net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2\mappings.tiny" />
+      <module name="framelogger.client" options="-AoutRefMapFile=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\classes\java\client\client-framelogger-refmap.json -AdefaultObfuscationEnv=named:intermediary -Aquiet=true -AoutMapFileNamedIntermediary=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\loom-cache\mixin-map-net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2.client.tiny -AinMapFileNamedIntermediary=C:\Users\hotin\.gradle\caches\fabric-loom\1.21.1\net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2\mappings.tiny" />
+      <module name="framelogger.main" options="-AoutRefMapFile=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\classes\java\main\framelogger-refmap.json -AdefaultObfuscationEnv=named:intermediary -Aquiet=true -AoutMapFileNamedIntermediary=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\loom-cache\mixin-map-net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2.main.tiny -AinMapFileNamedIntermediary=C:\Users\hotin\.gradle\caches\fabric-loom\1.21.1\net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2\mappings.tiny" />
+      <module name="framelogger.test" options="-AoutRefMapFile=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\classes\java\test\test-framelogger-refmap.json -AdefaultObfuscationEnv=named:intermediary -Aquiet=true -AoutMapFileNamedIntermediary=C:\Users\hotin\IdeaProjects\mc-frame-logger\framelogger\build\loom-cache\mixin-map-net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2.test.tiny -AinMapFileNamedIntermediary=C:\Users\hotin\.gradle\caches\fabric-loom\1.21.1\net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2\mappings.tiny" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "framelogger",
+  "version": "${version}",
+  "name": "Tin's Frame Logger",
+  "description": "Internal tool to log per-frame timings (frametime & FPS) onto a CSV.",
+  "authors": ["Tin"],
+  "environment": "client",
+
+  "entrypoints": {
+    "client": [
+      "com.tin.FrameLoggerMod"
+    ]
+  },
+
+  "icon": "assets/framelogger/icon.png",
+
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

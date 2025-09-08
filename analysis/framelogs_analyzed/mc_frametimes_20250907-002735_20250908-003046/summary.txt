@@ -1,0 +1,13 @@
+Source file: c:\Users\hotin\IdeaProjects\mc-frame-logger\analysis\framelogs\mc_frametimes_20250907-002735.csv
+Frames: 2077
+Average FPS: 118.29
+1% Low FPS: 101.45
+0.1% Low FPS: 87.18
+Average Frametime (ms): 8.454
+99th percentile Frametime (ms): 9.857
+99.9th percentile Frametime (ms): 11.471
+
+Notes:
+- Percentiles are computed on FRAMETIME and then inverted to FPS.
+- Consider trimming warm-up seconds for fair comparisons.
+- Plot is auto-scaled; disable vsync to see raw GPU limits.
