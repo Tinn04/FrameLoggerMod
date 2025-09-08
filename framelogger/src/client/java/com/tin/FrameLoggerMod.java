@@ -63,6 +63,7 @@ public class FrameLoggerMod implements ClientModInitializer {
                 double ftMs = dtNs / 1_000_000.0;
                 double fps = ftMs > 0 ? 1000.0 / ftMs : 0.0;
                 writeRow(ftMs, fps);
+                FRAME_TIMES.add(ftMs);
             }
             // update lastNs before repeating
             lastNs = now;
@@ -94,7 +95,48 @@ public class FrameLoggerMod implements ClientModInitializer {
         LOGGING.set(false);
         lastNs = 0L;
         try {
-            if (out != null) { out.flush(); out.close(); }
+            if (out != null) {
+                out.flush();
+                out.close();
+            }
+            if (!FRAME_TIMES.isEmpty()) {
+                // Sort the frametimes for percentile calculation
+                // Create a copy of the frametime arrays so we don't touch the original when sorting
+                // Using the average frametime we can calculate the average FPS
+                // sometimes you gotta just read https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html
+                // Java can be wacky at times, man
+                java.util.List<Double> sorted = new java.util.ArrayList<>(FRAME_TIMES);
+                java.util.Collections.sort(sorted);
+                int n = sorted.size();
+                double avgFt = sorted.stream().mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
+                double avgFps = 1000.0 / avgFt;
+
+                // 99th percentile frametime (for 1% low)
+                double p99Ft = sorted.get((int)(n * 0.99) - 1);
+                double p1LowFps = 1000.0 / p99Ft;
+
+                // 99.9th percentile frametime (for 0.1% low)
+                double p999Ft = sorted.get((int)(n * 0.999) - 1);
+                double p01LowFps = 1000.0 / p999Ft;
+
+                // Write to a new summary file in frame_logs/
+                String stamp = java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(java.time.LocalDateTime.now());
+                java.io.File dir = java.nio.file.Paths.get(client.runDirectory.getAbsolutePath(), "frame_logs").toFile();
+                if (!dir.exists()) dir.mkdirs();
+                java.io.File summaryFile = new java.io.File(dir, "summary_" + stamp + ".txt");
+
+                try (java.io.BufferedWriter bw = new java.io.BufferedWriter(new java.io.FileWriter(summaryFile, false))) {
+                    bw.write("Frames: " + n + "\n");
+                    bw.write(String.format(java.util.Locale.US, "Average FPS: %.2f\n", avgFps));
+                    bw.write(String.format(java.util.Locale.US, "1%% Low FPS: %.2f\n", p1LowFps));
+                    bw.write(String.format(java.util.Locale.US, "0.1%% Low FPS: %.2f\n", p01LowFps));
+                    bw.write(String.format(java.util.Locale.US, "Average Frametime (ms): %.3f\n", avgFt));
+                    bw.write(String.format(java.util.Locale.US, "99th %%ile Frametime (ms): %.3f\n", p99Ft));
+                    bw.write(String.format(java.util.Locale.US, "99.9th %%ile Frametime (ms): %.3f\n", p999Ft));
+                }
+                // Clear the frametime list for next run
+                FRAME_TIMES.clear();
+            }
             toast(client, "[FrameLogger] STOP");
         } catch (Exception e) {
             toast(client, "[FrameLogger] STOP (with errors): " + e.getMessage() + "Fix your code, man :( (or maybe it's not your code :D)");
